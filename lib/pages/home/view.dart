@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import 'package:venomous_app_chat/configs/app_themes.dart' as app_themes;
 import 'package:venomous_app_chat/configs/app_info.dart' as app_info;
+import 'package:venomous_app_chat/router/app_router.dart' as app_router;
 import 'package:venomous_app_chat/common/widgets/_index.dart' as custom_widgets;
-import 'package:venomous_app_chat/pages/chat/_index.dart' as chat_page;
 
 const String _homePageMainTitle = app_info.AppInfo.appName;
 const String _homePageSubTitle = "xxxxxxxxxxxxxx";
@@ -16,23 +18,19 @@ class HomePageView extends StatefulWidget {
 
 class _HomePageViewState extends State<HomePageView> {
   Future<void> _handleClickStartButton() async {
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (BuildContext context) {
-          return const chat_page.ChatPageView();
-        },
-      ),
-    );
+    Get.toNamed(app_router.PathName.chatRooms);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text('Home'),
-      // ),
+      appBar: AppBar(
+        actions: const [custom_widgets.ThemeToggler()],
+      ),
       body: custom_widgets.LayoutPageBody(
-        padding: const EdgeInsets.symmetric(horizontal: 40),
+        padding: EdgeInsets.symmetric(
+          horizontal: app_themes.CustomThemeSizes.sizes[5],
+        ),
         children: [
           const Spacer(flex: 2),
           Column(
@@ -40,9 +38,12 @@ class _HomePageViewState extends State<HomePageView> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               const custom_widgets.Typography.topTitle(_homePageMainTitle),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 40),
-                child: custom_widgets.Typography.subtitle(_homePageSubTitle),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: app_themes.CustomThemeSizes.sizes[5],
+                ),
+                child:
+                    const custom_widgets.Typography.subtitle(_homePageSubTitle),
               ),
               custom_widgets.Button.capsule(
                 "Let's Chat",

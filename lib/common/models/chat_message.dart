@@ -6,23 +6,23 @@ import 'user_date.dart';
 class ChatMessage {
   String content;
   DateTime timestamp;
-  String userId;
+  String memberId;
 
   ChatMessage({
     required this.content,
     required this.timestamp,
-    required this.userId,
+    required this.memberId,
   });
 
-  static bool isCurrentUser(String userId) {
-    return userId == UserData.getCurrentUser().id;
+  static bool isCurrentUser(String memberId) {
+    return memberId == UserData.getCurrentUser().id;
   }
 
   factory ChatMessage.create(String content) {
     return ChatMessage(
       content: content,
       timestamp: DateTime.now(),
-      userId: UserData.getCurrentUser().id,
+      memberId: UserData.getCurrentUser().id,
     );
   }
 }

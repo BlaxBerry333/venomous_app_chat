@@ -8,7 +8,7 @@ class CustomThemeSizes {
 
 class CustomThemeColors {
   static const Color primary = Color(0xFF478EBD);
-  static const Color disabled = Color(0xFFA9A9A9);
+  static const Color disabled = Color(0xFF7B7B7B);
   static const Color error = Color(0xC8E53835);
 
   static const Color primaryText = Color(0xFF272739);
@@ -23,26 +23,46 @@ class CustomThemeColors {
 class CustomThemeData {
   CustomThemeData._();
 
-  static ThemeData getTheme() {
+  static ThemeData _buildTheme({
+    required Color scaffoldBackgroundColor,
+    required Color appBarBackgroundColor,
+    required Color appBarForegroundColor,
+    required Color textColor,
+    required Color inputDecorationFillColor,
+    required Color inputDecorationBorderColor,
+  }) {
     return ThemeData(
       primarySwatch: Colors.blue,
       primaryColor: CustomThemeColors.primary,
 
       // --------------------------------------------------------------------------------
       appBarTheme: AppBarTheme(
-        backgroundColor: CustomThemeColors.lightBackground,
-        foregroundColor: CustomThemeColors.primaryText,
+        backgroundColor: appBarBackgroundColor,
+        foregroundColor: appBarForegroundColor,
         elevation: 0,
         centerTitle: false,
         titleTextStyle: TextStyle(
-          color: CustomThemeColors.primaryText,
+          color: textColor,
           fontSize: CustomThemeSizes.sizes[3],
           fontWeight: FontWeight.bold,
+        ),
+        iconTheme: IconThemeData(
+          color: textColor,
         ),
       ),
 
       // --------------------------------------------------------------------------------
-      scaffoldBackgroundColor: CustomThemeColors.lightBackground,
+      scaffoldBackgroundColor: scaffoldBackgroundColor,
+
+      // --------------------------------------------------------------------------------
+      textTheme: TextTheme(
+        bodyLarge: TextStyle(color: textColor),
+        bodyMedium: TextStyle(color: textColor),
+        bodySmall: TextStyle(color: textColor),
+        headlineLarge: TextStyle(color: textColor),
+        headlineMedium: TextStyle(color: textColor),
+        headlineSmall: TextStyle(color: textColor),
+      ),
 
       // --------------------------------------------------------------------------------
       elevatedButtonTheme: ElevatedButtonThemeData(
@@ -65,28 +85,50 @@ class CustomThemeData {
       ),
 
       // --------------------------------------------------------------------------------
-      inputDecorationTheme: const InputDecorationTheme(
+      inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: CustomThemeColors.lightBackground,
-        hintStyle: TextStyle(color: CustomThemeColors.secondaryText),
-        labelStyle: TextStyle(color: CustomThemeColors.primaryText),
+        fillColor: inputDecorationFillColor,
+        hintStyle: const TextStyle(color: CustomThemeColors.secondaryText),
+        labelStyle: const TextStyle(color: CustomThemeColors.primaryText),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: CustomThemeColors.primary, width: 2),
-          borderRadius: BorderRadius.all(Radius.circular(8)),
+          borderSide: BorderSide(color: inputDecorationBorderColor, width: 2),
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: CustomThemeColors.primary, width: 2),
-          borderRadius: BorderRadius.all(Radius.circular(8)),
+          borderSide: BorderSide(color: inputDecorationBorderColor, width: 2),
+          borderRadius: const BorderRadius.all(Radius.circular(8)),
         ),
-        errorBorder: OutlineInputBorder(
+        errorBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: CustomThemeColors.error, width: 2),
           borderRadius: BorderRadius.all(Radius.circular(8)),
         ),
-        focusedErrorBorder: OutlineInputBorder(
+        focusedErrorBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: CustomThemeColors.error, width: 2),
           borderRadius: BorderRadius.all(Radius.circular(8)),
         ),
       ),
+    );
+  }
+
+  static ThemeData lightTheme() {
+    return _buildTheme(
+      scaffoldBackgroundColor: CustomThemeColors.lightBackground,
+      appBarBackgroundColor: CustomThemeColors.lightBackground,
+      appBarForegroundColor: CustomThemeColors.primaryText,
+      textColor: CustomThemeColors.primaryText,
+      inputDecorationFillColor: CustomThemeColors.lightBackground,
+      inputDecorationBorderColor: CustomThemeColors.primary,
+    );
+  }
+
+  static ThemeData darkTheme() {
+    return _buildTheme(
+      scaffoldBackgroundColor: CustomThemeColors.darkBackground,
+      appBarBackgroundColor: CustomThemeColors.darkBackground,
+      appBarForegroundColor: CustomThemeColors.primaryText,
+      textColor: Colors.white,
+      inputDecorationFillColor: CustomThemeColors.darkBackground,
+      inputDecorationBorderColor: CustomThemeColors.primary,
     );
   }
 }

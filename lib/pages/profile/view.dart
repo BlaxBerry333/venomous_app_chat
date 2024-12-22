@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'package:venomous_app_chat/common/widgets/_index.dart' as custom_widgets;
 
@@ -9,11 +10,19 @@ class ProfilePageView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'),
+        actions: const [custom_widgets.ThemeToggler()],
       ),
-      body: const custom_widgets.LayoutPageBody(
+      body: custom_widgets.LayoutPageBody(
         children: [
-          custom_widgets.Typography.body1('Profile'),
+          custom_widgets.Button(
+            "Open Dialog",
+            onClick: () {
+              Get.defaultDialog(
+                title: "Dialog",
+                middleText: "This is a dialog",
+              );
+            },
+          ),
         ],
       ),
     );
